@@ -27,3 +27,6 @@ cp .env.example .env
 npx prisma generate
 npm start
 ```
+
+## Render Deployment Notes
+Configured for Render Web Service deployment with npm ci && npx prisma generate and node server.js.
