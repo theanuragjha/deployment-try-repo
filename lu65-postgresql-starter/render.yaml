@@ -5,7 +5,7 @@ services:
     # TASK: this build command generates the Prisma Client but never applies
     # migrations. Add "&& npx prisma migrate deploy" so a fresh deploy creates
     # the tables described by prisma/schema.prisma before the app starts.
-    buildCommand: npm ci && npx prisma generate
+    buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy
     startCommand: node server.js
     envVars:
       - key: DATABASE_URL

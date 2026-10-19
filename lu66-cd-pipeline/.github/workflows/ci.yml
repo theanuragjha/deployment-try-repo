@@ -26,11 +26,14 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
-  # TASK: add a deploy job here.
-  # It must:
-  #   - only run after the ci job passes (needs: ci)
-  #   - only run on pushes to main (if: github.ref == 'refs/heads/main')
-  #   - send an HTTP POST to the Render deploy hook stored in secrets:
-  #     curl --fail-with-body --show-error \
-  #       -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
-  #   - use runs-on: ubuntu-24.04
+  deploy:
+    runs-on: ubuntu-24.04
+    needs: ci
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Trigger Render deploy
+        run: |
+          curl --fail-with-body --show-error \
+            -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+
